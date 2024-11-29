@@ -1,3 +1,9 @@
+#Add 7zip for powershell
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+Set-PSRepository -Name 'PSGallery' -SourceLocation "https://www.powershellgallery.com/api/v2" -InstallationPolicy Trusted
+Install-Module -Name 7Zip4PowerShell -Force
+
 $Workingdirectory = 'C:\users\hanso\Downloads'
 $ArtistDirectory = @()
 $Artist = @()
@@ -7,6 +13,7 @@ $ArtistNameString = @()
 $ArtistAlbums = @()
 $AlbumDirectoryString = @()
 $AlbumDirectory = @()
+
 
 #Set Music Directory
 $MusicDirectories = Get-ChildItem -Path $Workingdirectory -Recurse -Directory -Force -ErrorAction SilentlyContinue | Select-Object Name,FullName
@@ -36,6 +43,7 @@ $AlbumDirectoryString = $ArtistAlbum.Name.ToString() -replace '.zip' -replace '_
 $AlbumDirectory = "E:\TempMusic\Completed\$ArtistNameString\$AlbumDirectoryString"
 
 #Extract Dat
-Expand-Archive -LiteralPath $ArtistAlbum.FullName -DestinationPath $AlbumDirectory
+#Expand-Archive -LiteralPath $ArtistAlbum.FullName -DestinationPath $AlbumDirectory -Force
+Expand-7Zip -ArchiveFileName $ArtistAlbum.FullName -TargetPath $AlbumDirectory
 }
 }

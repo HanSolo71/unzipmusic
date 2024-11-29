@@ -1,8 +1,8 @@
 #Add 7zip for powershell
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201
 Set-PSRepository -Name 'PSGallery' -SourceLocation "https://www.powershellgallery.com/api/v2" -InstallationPolicy Trusted
-Install-Module -Name 7Zip4PowerShell -Force
+Install-Module -Name 7Zip4PowerShell
 
 $Workingdirectory = 'C:\users\hanso\Downloads'
 $ArtistDirectory = @()
@@ -29,7 +29,7 @@ $Artist.FullName
 $ArtistNameString = $Artist.Name.ToString()
 
 #Set Artist Directory for Expanding Archive
-$ArtistDirectory = "C:\Temp\Completed\$ArtistNameString"
+$ArtistDirectory = "E:\TempMusic\Completed\$ArtistNameString"
 
 #For each album of the artist unzip, rename, move
 $ArtistAlbums = Get-ChildItem -Path $Artist.FullName | Select-Object Name,FullName
